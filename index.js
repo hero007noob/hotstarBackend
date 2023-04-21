@@ -17,7 +17,9 @@ app.use(sessionConfig);
 app.use('/auth', authRouter)
 app.use('/user', tokenVerification, otherFunctionRouter)
 
-
+app.get('/', (req, res) => {
+    res.send('hotstar backend')
+})
 app.listen(port, async () => {
     try {
         await db();

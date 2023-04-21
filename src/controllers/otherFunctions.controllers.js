@@ -42,16 +42,7 @@ otherFunctionRouter.get('/enable-parental-lock', async (req, res) => {
 otherFunctionRouter.get('/continue-watching', async (req, res) => {
     try {
         let obj = await getContinueWatching(req.user);
-        res.status(200).send(obj);
-    } catch (error) {
-        console.error('error', error);
-        res.status(404).send(error.message);
-    }
-})
-otherFunctionRouter.get('/continue-watching', async (req, res) => {
-    try {
-        let obj = await getContinueWatching(req.user);
-        res.status(200).send(obj);
+        res.status(200).send(obj || { data: {} });
     } catch (error) {
         console.error('error', error);
         res.status(404).send(error.message);
@@ -59,7 +50,7 @@ otherFunctionRouter.get('/continue-watching', async (req, res) => {
 })
 otherFunctionRouter.post('/continue-watching', async (req, res) => {
     try {
-        let obj = await saveContinueWatching({ body: req.body })
+        let obj = await saveContinueWatching({ body: { ...req.body, userId: req.user.id } })
         res.status(200).send(obj);
     } catch (error) {
         console.error('error', error);
@@ -68,7 +59,7 @@ otherFunctionRouter.post('/continue-watching', async (req, res) => {
 })
 otherFunctionRouter.post('/watch-list', async (req, res) => {
     try {
-        let obj = await updateWatchList({ body: req.body })
+        let obj = await updateWatchList({ body: { ...req.body, userId: req.user.id } })
         res.status(200).send(obj);
     } catch (error) {
         console.error('error', error);

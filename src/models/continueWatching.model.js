@@ -7,8 +7,9 @@ const continueWatchingSchema = new Schema({
 })
 const ContinueWatching = mongoose.model('ContinueWatching', continueWatchingSchema,);
 const getContinueWatching = async (user) => {
+    console.log("user: ukm ", user);
     const item = await ContinueWatching.findOne({ userId: user.id });
-    return item;
+    return item || { data: {} };
 }
 const saveContinueWatching = async ({ body }) => {
     try {

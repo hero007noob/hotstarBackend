@@ -18,6 +18,11 @@ const User = mongoose.model('User', userSchema);
 const loginUser = async ({ body }) => {
     const phone = body.phone;
     let user = await User.findOne({ phone: phone });
+    if (!user) return null;
+    return user;
+}
+const registerUser = async ({ body }) => {
+    let user = await loginUser({ body: body });
     if (!user) user = await User.create(body);
     return user;
 }
@@ -38,4 +43,4 @@ const updateParentalLockStatus = async (user, value) => {
     console.log("updatedUser: ", updatedUser);
     return { message: 'updated status', parentalLock: value };
 }
-module.exports = { User, loginUser, updatePackage, getUser, updateParentalLockStatus };
+module.exports = { User, loginUser, updatePackage, getUser, updateParentalLockStatus, registerUser };

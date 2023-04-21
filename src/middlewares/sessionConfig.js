@@ -6,7 +6,7 @@ const sessionConfig = session({
     saveUninitialized: false,
     resave: false,
     store: MongoStore.create({ mongoUrl: mongoDB, collectionName: 'sessions', ttl: 60 * 60, autoRemoveInterval: 60, autoRemove: 'interval' }),
-    cookie: { secure: false }
+    cookie: { secure: false, httpOnly: false }
 })
 
 module.exports = { sessionConfig }

@@ -8,7 +8,7 @@ const watchListSchema = new Schema({
 const WatchList = mongoose.model('WatchList', watchListSchema,);
 const getWatchList = async (user) => {
     const list = await WatchList.findOne({ userId: user.id });
-    return list;
+    return list || { data: [] };
 }
 const updateWatchList = async ({ body }) => {
     try {

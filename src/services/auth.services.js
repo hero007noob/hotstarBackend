@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const crypto = require('crypto');
 const generateToken = (user) => {
     const payload = { id: user._id, email: user.email, phone: user.phone };
     const secret = process.env.JWT_SECRET;
@@ -14,5 +14,14 @@ function verifyToken(token) {
         return null; // or throw an error, depending on your preference
     }
 }
+async function generateOtp(email) {
+    try {
+        const otp = crypto.randomInt(1000, 9999);
+        return otp;
+    } catch (err) {
+        console.log('FAILED...', err);
+        return null;
+    }
+}
 
-module.exports = { generateToken, verifyToken };
+module.exports = { generateToken, verifyToken, generateOtp };
